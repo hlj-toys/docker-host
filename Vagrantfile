@@ -5,16 +5,17 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<-SCRIPT
+sudo cp -f /vagrant/sources.list /etc/apt/sources.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
 sudo sh -c "echo deb https://get.docker.io/ubuntu docker main\
 > /etc/apt/sources.list.d/docker.list"
 sudo apt-get update
 sudo apt-get install lxc-docker -y -q
 sudo cp -f /usr/share/zoneinfo/PRC /etc/localtime
-curl -L https://github.com/docker/fig/releases/download/0.5.2/linux > /usr/local/bin/fig
+cp /vagrant/fig0.5.2  /usr/local/bin/fig
 chmod +x /usr/local/bin/fig
 sudo gpasswd -a vagrant docker
-sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+sudo apt-get autoremove && sudo apt-get clean  && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 SCRIPT
 
 
